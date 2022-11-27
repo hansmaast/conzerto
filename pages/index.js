@@ -78,7 +78,7 @@ export default function Home({ shows }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by Simplo
+          ©hansmaast
           <span className={styles.logo}>
             {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
           </span>
