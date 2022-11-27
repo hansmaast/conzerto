@@ -31,9 +31,7 @@ export default function Home({ shows }) {
       <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
 
-        <p className={styles.description}>
-          {"Check out some of our shows below!"}
-        </p>
+        <p className={styles.description}>{"Check out shows below!"}</p>
 
         <div className={styles.buttons}>
           <Button isActive={!scene} onClick={() => setScene()}>
@@ -72,18 +70,7 @@ export default function Home({ shows }) {
         </div>
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          ©hansmaast
-          <span className={styles.logo}>
-            {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
-          </span>
-        </a>
-      </footer>
+      <footer className={styles.footer}>©hansmaast</footer>
     </div>
   );
 }
