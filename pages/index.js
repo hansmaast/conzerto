@@ -99,8 +99,6 @@ export async function getStaticProps() {
     mergedShows = [...mergedShows, ...shows[key]];
   });
 
-  console.log("shows", shows);
-
   await client.disconnect();
 
   return {
