@@ -14,8 +14,6 @@ const Button = ({ isActive, children, onClick }) => (
 );
 
 export default function Home({ shows }) {
-  console.log("shows", shows);
-
   const [scene, setScene] = useState();
 
   const showsToRender = scene
@@ -41,8 +39,18 @@ export default function Home({ shows }) {
           <Button isActive={!scene} onClick={() => setScene()}>
             All
           </Button>
-          <Button isActive={scene === 'rockefeller'} onClick={() => setScene("rockefeller")}>Rockefellaz</Button>
-          <Button isActive={scene === 'parkteateret'} onClick={() => setScene("parkteateret")}>Parky</Button>
+          <Button
+            isActive={scene === "rockefeller"}
+            onClick={() => setScene("rockefeller")}
+          >
+            Rockefellaz
+          </Button>
+          <Button
+            isActive={scene === "parkteateret"}
+            onClick={() => setScene("parkteateret")}
+          >
+            Parky
+          </Button>
         </div>
 
         <div className={styles.grid}>
@@ -52,14 +60,13 @@ export default function Home({ shows }) {
               href={show.ticketLink}
               className={styles.card}
             >
-              {/* Show title */}
               <h2>{show.title.toUpperCase()}</h2>
-              {show.label && (
-                {/* <p className={styles.label}>{show.label}</p> */}
+              {/* {show.label && (
+                <p className={styles.label}>{show.label}</p>
               )}
               {show.date && (
-                {/* <p className={styles.date}>{show.date}</p> */}
-              )}
+                <p className={styles.date}>{show.date}</p>
+              )} */}
             </a>
           ))}
         </div>
@@ -98,8 +105,6 @@ export async function getStaticProps() {
     shows[key] = JSON.parse(shows[key]);
     mergedShows = [...mergedShows, ...shows[key]];
   });
-
-  console.log("shows", shows);
 
   await client.disconnect();
 
