@@ -1,21 +1,10 @@
 import Head from "next/head";
 import { useState } from "react";
 import { createClient } from "redis";
+import { Button } from "../components/Button";
 import styles from "../styles/Home.module.css";
 
 const title = "Tært Conzært";
-
-const Button = ({ isActive, children, onClick }) => (
-  <button
-    style={{
-      backgroundColor: isActive && "#569166",
-      color: isActive && "#fff",
-    }}
-    onClick={onClick}
-  >
-    {children}
-  </button>
-);
 
 export default function Home({ shows, scenes, allShows }) {
   const [selected, setSelected] = useState();
@@ -32,8 +21,6 @@ export default function Home({ shows, scenes, allShows }) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
-
-        {/* <p className={styles.description}>{"Check out shows below!"}</p> */}
 
         <div className={styles.buttons}>
           <Button isActive={!selected} onClick={() => setSelected(undefined)}>
@@ -79,7 +66,6 @@ export async function getStaticProps() {
   await client.connect();
 
   let allShows = [];
-
   let shows = await client.hGetAll("shows");
   const scenes = Object.keys(shows);
 
