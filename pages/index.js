@@ -6,19 +6,21 @@ import styles from "../styles/Home.module.css";
 const title = "Tært Conzært";
 
 const Button = ({ isActive, children, onClick }) => (
-  <button style={{
-    backgroundColor: isActive && "#569166",
-  }} onClick={onClick}>
+  <button
+    style={{
+      backgroundColor: isActive && "#569166",
+      color: isActive && "#fff",
+    }}
+    onClick={onClick}
+  >
     {children}
   </button>
 );
 
-export default function Home({ shows }) {
-  const [scene, setScene] = useState();
+export default function Home({ shows, scenes, allShows }) {
+  const [selected, setSelected] = useState();
 
-  const showsToRender = scene
-    ? shows[scene]
-    : [...shows.parkteateret, ...shows.rockefeller];
+  const showsToRender = selected ? shows[selected] : allShows;
 
   return (
     <div className={styles.container}>
@@ -31,27 +33,25 @@ export default function Home({ shows }) {
       <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
 
-        <p className={styles.description}>{"Check out shows below!"}</p>
+        {/* <p className={styles.description}>{"Check out shows below!"}</p> */}
 
         <div className={styles.buttons}>
-          <Button isActive={!scene} onClick={() => setScene()}>
-            All
+          <Button isActive={!selected} onClick={() => setSelected(undefined)}>
+            ALLE
           </Button>
-          <Button
-            isActive={scene === "rockefeller"}
-            onClick={() => setScene("rockefeller")}
-          >
-            Rockefellaz
-          </Button>
-          <Button
-            isActive={scene === "parkteateret"}
-            onClick={() => setScene("parkteateret")}
-          >
-            Parky
-          </Button>
+          {scenes.map((scene) => (
+            <Button
+              key={scene}
+              isActive={scene === selected}
+              onClick={() => setSelected(scene)}
+            >
+              {scene.toUpperCase()}
+            </Button>
+          ))}
         </div>
 
         <div className={styles.grid}>
+          {/* TODO: Display more info about shows here */}
           {showsToRender.map((show, i) => (
             <a
               key={show.title + "_" + i}
@@ -59,12 +59,6 @@ export default function Home({ shows }) {
               className={styles.card}
             >
               <h2>{show.title.toUpperCase()}</h2>
-              {/* {show.label && (
-                <p className={styles.label}>{show.label}</p>
-              )}
-              {show.date && (
-                <p className={styles.date}>{show.date}</p>
-              )} */}
             </a>
           ))}
         </div>
@@ -84,13 +78,14 @@ export async function getStaticProps() {
 
   await client.connect();
 
-  let mergedShows = [];
+  let allShows = [];
 
   let shows = await client.hGetAll("shows");
+  const scenes = Object.keys(shows);
 
-  Object.keys(shows).forEach((key) => {
-    shows[key] = JSON.parse(shows[key]);
-    mergedShows = [...mergedShows, ...shows[key]];
+  scenes.forEach((scene) => {
+    shows[scene] = JSON.parse(shows[scene]);
+    allShows = [...allShows, ...shows[scene]];
   });
 
   await client.disconnect();
@@ -98,7 +93,8 @@ export async function getStaticProps() {
   return {
     props: {
       shows,
-      mergedShows,
+      scenes,
+      allShows,
     },
   };
 }
