@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createClient } from "redis";
 import styles from "../styles/Home.module.css";
 
-const title = "Tært Conzært";
+const title = "🧨 Tært Conzært 🧨";
 
 const Button = ({ isActive, children, onClick }) => (
   <button
