@@ -45,7 +45,10 @@ export default function Home({ shows, scenes, allShows }) {
               href={show.ticketLink}
               className={styles.card}
             >
-              <h2>{show.title.toUpperCase()}</h2>
+              <h2 className={styles.cardTitle}>{show.title.toUpperCase()}</h2>
+              <div className={styles.cardDate}>
+                <p>{show.date}</p>
+              </div>
             </a>
           ))}
         </div>
