@@ -121,6 +121,7 @@
   width: 100%;
   text-align: center;
   color: white;
+  padding: 0.12rem;
 }
 .card:hover,
 .card:focus,
