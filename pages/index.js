@@ -1,7 +1,8 @@
 import Head from "next/head";
 import { useState } from "react";
 import { createClient } from "redis";
-import { Button } from "../components/Button";
+import { DateRange } from "../components/DateRange";
+import { SceneSelector } from "../components/SceneSelector";
 import styles from "../styles/Home.module.css";
 
 const title = "Tært Conzært";
@@ -21,21 +22,12 @@ export default function Home({ shows, scenes, allShows }) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
-
-        <div className={styles.buttons}>
-          <Button isActive={!selected} onClick={() => setSelected(undefined)}>
-            ALLE
-          </Button>
-          {scenes.map((scene) => (
-            <Button
-              key={scene}
-              isActive={scene === selected}
-              onClick={() => setSelected(scene)}
-            >
-              {scene.toUpperCase()}
-            </Button>
-          ))}
-        </div>
+        <SceneSelector
+          scenes={scenes}
+          selected={selected}
+          setSelected={setSelected}
+        />
+        <DateRange />
 
         <div className={styles.grid}>
           {/* TODO: Display more info about shows here */}
