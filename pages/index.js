@@ -1,3 +1,4 @@
+import { isPast } from "date-fns";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { createClient } from "redis";
@@ -11,29 +12,25 @@ const title = "Tært Conzært";
 
 export default function Home({ shows, scenes, allShows }) {
   const [scene, setScene] = useState();
-  const [dateOption, setDateOption] = useState("thisMonth");
+  const [dateOption, setDateOption] = useState("all");
 
-  const [showsToFilter, setShowsToFiler] = useState(shows[scene] ?? allShows);
-  const [showsToRender, setShowsToRender] = useState(shows[scene] ?? allShows);
-
-  useEffect(() => {
-    setShowsToFiler(shows[scene] ?? allShows);
-  }, [shows, allShows, scene]);
+  const [showsToRender, setShowsToRender] = useState(allShows);
 
   useEffect(() => {
     switch (dateOption) {
       case "today":
-        setShowsToRender(getShowsAhead(showsToFilter, 1));
+        setShowsToRender(getShowsAhead(allShows, scene, 1));
         return;
       case "thisWeek":
-        setShowsToRender(getShowsAhead(showsToFilter, 7));
+        setShowsToRender(getShowsAhead(allShows, scene, 7));
         return;
       case "thisMonth":
-        setShowsToRender(getShowsAhead(showsToFilter, 30));
+        setShowsToRender(getShowsAhead(allShows, scene, 30));
+        return;
       default:
-        setShowsToRender(showsToFilter);
+        setShowsToRender(allShows);
     }
-  }, [dateOption, showsToFilter]);
+  }, [dateOption, allShows, scene]);
 
   return (
     <div className={styles.container}>
@@ -79,6 +76,10 @@ export async function getStaticProps() {
     shows[scene] = JSON.parse(shows[scene]);
     allShows = [...allShows, ...shows[scene]];
   });
+
+  allShows = allShows
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .filter((show) => isPast(new Date(show.date)) === false);
 
   await client.disconnect();
 

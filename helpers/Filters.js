@@ -1,18 +1,16 @@
-import { isSameDay } from "./Dates";
+import { differenceInDays, isToday } from "date-fns";
 
 const today = new Date();
 
-export const getShowsAhead = (shows = [], days = 1) => {
+export const getShowsAhead = (shows = [], scene, days = 7) => {
   return shows.filter((show) => {
     const showDate = new Date(show.date);
+    const isInDayRange =
+      differenceInDays(showDate, today) <= days || isToday(showDate);
 
-    if (days === 1) {
-      return isSameDay(showDate, today);
+    if (scene) {
+      return show.scene === scene && isInDayRange;
     }
-
-    const isAhead = showDate.getDate() - today.getDate() <= days;
-    const isSameMonth = showDate.getMonth() === today.getMonth();
-    const isSameYear = showDate.getFullYear() === today.getFullYear();
-    return isAhead && isSameMonth && isSameYear;
+    return isInDayRange;
   });
 };

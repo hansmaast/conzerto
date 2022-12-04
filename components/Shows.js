@@ -8,6 +8,9 @@ export const Shows = (props) => (
         href={show.ticketLink}
         className={styles.card}
       >
+        <div className={styles.cardDate}>
+          <p>{show.scene.toUpperCase()}</p>
+        </div>
         <h2 className={styles.cardTitle}>{show.title.toUpperCase()}</h2>
         <div className={styles.cardDate}>
           <p>{new Date(show.date).toLocaleDateString("no-NO", {})}</p>
