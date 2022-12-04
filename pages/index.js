@@ -28,7 +28,7 @@ export default function Home({ shows, scenes, allShows }) {
         setShowsToRender(getShowsAhead(allShows, scene, 30));
         return;
       default:
-        setShowsToRender(allShows);
+          setShowsToRender(allShows.filter(show => show.scene === scene));
     }
   }, [dateOption, allShows, scene]);
 
