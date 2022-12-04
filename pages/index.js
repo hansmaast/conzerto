@@ -19,7 +19,7 @@ export default function Home({ shows, scenes, allShows }) {
   useEffect(() => {
     switch (dateOption) {
       case "today":
-        setShowsToRender(getShowsAhead(allShows, scene, 1));
+        setShowsToRender(getShowsAhead(allShows, scene, 0));
         return;
       case "thisWeek":
         setShowsToRender(getShowsAhead(allShows, scene, 7));
