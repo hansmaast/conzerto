@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "redis";
 import { DateSelection } from "../components/DateSelection";
 import { SceneSelector } from "../components/SceneSelector";
+import { Shows } from "../components/Shows";
 import { getShowsAhead } from "../helpers/Filters";
 import styles from "../styles/Home.module.css";
 
@@ -53,21 +54,7 @@ export default function Home({ shows, scenes, allShows }) {
         <hr />
         <DateSelection dateOption={dateOption} setDateOption={setDateOption} />
         <hr />
-        <div className={styles.grid}>
-          {/* TODO: Display more info about shows here */}
-          {showsToRender.map((show, i) => (
-            <a
-              key={show.title + "_" + i}
-              href={show.ticketLink}
-              className={styles.card}
-            >
-              <h2 className={styles.cardTitle}>{show.title.toUpperCase()}</h2>
-              <div className={styles.cardDate}>
-                <p>{new Date(show.date).toLocaleDateString("no-NO", {})}</p>
-              </div>
-            </a>
-          ))}
-        </div>
+        <Shows showsToRender={showsToRender} />
       </main>
 
       <footer className={styles.footer}>©hansmaast</footer>

@@ -39,7 +39,7 @@
   text-decoration: none;
 }
 
-.title a:hover,
+.titleø a:hover,
 .title a:focus,
 .title a:active {
   text-decoration: underline;
@@ -51,102 +51,12 @@
   font-size: 4rem;
 }
 
-.title,
-.description {
+.title {
   text-align: center;
 }
 
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  /* max-width: 800px; */
-}
-
-.card {
-  margin: 1rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  place-items: flex-start;
-  gap:8px;
-  overflow: hidden;
-}
-
-.cardTitle {
-  padding: 1.5rem;
-}
-
-.cardDate {
-  background-color: rgb(79, 140, 175);
-  width: 100%;
-  text-align: center;
-  color: white;
-  padding: 0.12rem;
-}
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-
-
-.date, .label {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #fff;
-  background: #378f99;
-  padding: 0.2rem 0.5rem;
-  border-radius: 5px;
-  margin: 0.5rem 0;
-  font-weight: 400;
-} 
-
-.label {
-  border-radius: 999px;
-  background: #cef4d5;
-  color: #111;
-  font-size: smaller!important;
-  
-}
-
-.card h2 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    display: grid;
-  }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .buttons {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  display: grid;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  grid-template-columns: 1fr;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
-}
 
 @media (prefers-color-scheme: dark) {
-  .card,
   .footer {
     border-color: #222;
   }
