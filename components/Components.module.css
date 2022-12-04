@@ -1,45 +1,11 @@
-.dateRange {
-    --dateRangeHeight: 50px;
-
-    position: sticky;
-    top: 20px;
-    width: 100%;
-    max-width: 800px;
+.section {
+    display: grid;
+    place-items: center;
+    gap: 24px;
+    padding: 2rem 0px;
 }
 
-.dateRange month {
-    box-sizing: border-box;
-    overflow: hidden;
-    overflow-x: scroll;
-    border: 1px solid #e0e0e0;
-    border-radius: 99px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    display: flex;
-    align-items: center;
-    
-    /* Blur background with filter */
-    backdrop-filter: blur(10px);
-
-}
-
-.dateRange month button {
-    padding: 0 2rem;
-    margin: 1rem 0;
-}
-
-.dateRange input {
-    position: absolute;
-    background-color: red;
-    padding: 1rem;
-    color: #000;
-    height: var(--dateRangeHeight);
-    width: var(--dateRangeHeight);
-    border-radius: 99px;
-}
-
-.sceneSelector {
-    margin: 30px 0;
+.gridSelector {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
@@ -64,5 +30,14 @@
 @media (prefers-color-scheme: dark) {
     .button:hover {
         background-color: #343434;
+    }
+}
+@media screen and (max-width: 600px) {
+    .section {
+        padding: 1rem 0px;
+    }
+    
+    .gridSelector {
+        grid-template-columns: none;
     }
 }

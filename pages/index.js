@@ -1,16 +1,38 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "redis";
-import { DateRange } from "../components/DateRange";
+import { DateSelection } from "../components/DateSelection";
 import { SceneSelector } from "../components/SceneSelector";
+import { getShowsAhead } from "../helpers/Filters";
 import styles from "../styles/Home.module.css";
 
 const title = "Tært Conzært";
 
 export default function Home({ shows, scenes, allShows }) {
-  const [selected, setSelected] = useState();
+  const [scene, setScene] = useState();
+  const [dateOption, setDateOption] = useState("thisMonth");
 
-  const showsToRender = selected ? shows[selected] : allShows;
+  const [showsToFilter, setShowsToFiler] = useState(shows[scene] ?? allShows);
+  const [showsToRender, setShowsToRender] = useState(shows[scene] ?? allShows);
+
+  useEffect(() => {
+    setShowsToFiler(shows[scene] ?? allShows);
+  }, [shows, allShows, scene]);
+
+  useEffect(() => {
+    switch (dateOption) {
+      case "today":
+        setShowsToRender(getShowsAhead(showsToFilter, 1));
+        return;
+      case "thisWeek":
+        setShowsToRender(getShowsAhead(showsToFilter, 7));
+        return;
+      case "thisMonth":
+        setShowsToRender(getShowsAhead(showsToFilter, 30));
+      default:
+        setShowsToRender(showsToFilter);
+    }
+  }, [dateOption, showsToFilter]);
 
   return (
     <div className={styles.container}>
@@ -22,13 +44,15 @@ export default function Home({ shows, scenes, allShows }) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
+        <hr />
         <SceneSelector
           scenes={scenes}
-          selected={selected}
-          setSelected={setSelected}
+          selected={scene}
+          setSelected={setScene}
         />
-        <DateRange />
-
+        <hr />
+        <DateSelection dateOption={dateOption} setDateOption={setDateOption} />
+        <hr />
         <div className={styles.grid}>
           {/* TODO: Display more info about shows here */}
           {showsToRender.map((show, i) => (
@@ -39,7 +63,7 @@ export default function Home({ shows, scenes, allShows }) {
             >
               <h2 className={styles.cardTitle}>{show.title.toUpperCase()}</h2>
               <div className={styles.cardDate}>
-                <p>{show.date}</p>
+                <p>{new Date(show.date).toLocaleDateString("no-NO", {})}</p>
               </div>
             </a>
           ))}
