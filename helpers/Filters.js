@@ -5,12 +5,20 @@ const today = new Date();
 export const getShowsAhead = (shows = [], scene, days = 7) => {
   return shows.filter((show) => {
     const showDate = new Date(show.date);
-    const isInDayRange =
-      differenceInDays(showDate, today) <= days || isToday(showDate);
-
-    if (scene && scene !== "alle") {
-      return show.scene === scene && isInDayRange;
+   
+    let condition = isInDayRange;  
+  
+    if (days === 0) {
+      condition = isToday(showDate);
     }
-    return isInDayRange;
+    
+    if (scene) {
+      condition = condition && show.scene === scene;
+    }
+     
+    if (scene && days === Infinity) {
+        condition = show.scene === scene;
+    }
+    return condition;
   });
 };

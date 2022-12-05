@@ -19,7 +19,7 @@ export const useShows = (shows) => {
         setShowsToRender(getShowsAhead(shows, scene, 30));
         return;
       default:
-        setShowsToRender(shows);
+        setShowsToRender(getShowsAhead(shows, scene, Infinity));
     }
   }, [dateOption, shows, scene]);
 
