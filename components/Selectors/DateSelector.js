@@ -1,7 +1,7 @@
-import { Button } from "./Button";
-import styles from "./Components.module.css";
+import { Button } from "../Button";
+import styles from "./selectors.module.css";
 
-const dateSelection = {
+export const dateOptions = {
   today: "I DAG",
   thisWeek: "DENNE UKA",
   thisMonth: "DENNE MÅNEDEN",
@@ -9,12 +9,12 @@ const dateSelection = {
   // custom: "TILPASS",
 };
 
-const activeColor = "#e88138";
+export const activeColor = "#e88138";
 
 export const DateSelection = (props) => (
   <section className={styles.section}>
     <div className={styles.gridSelector}>
-      {Object.entries(dateSelection).map(([key, value]) => {
+      {Object.entries(dateOptions).map(([key, value]) => {
         return (
           <Button
             key={key}

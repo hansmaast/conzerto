@@ -8,7 +8,7 @@ export const getShowsAhead = (shows = [], scene, days = 7) => {
     const isInDayRange =
       differenceInDays(showDate, today) <= days || isToday(showDate);
 
-    if (scene) {
+    if (scene && scene !== "alle") {
       return show.scene === scene && isInDayRange;
     }
     return isInDayRange;

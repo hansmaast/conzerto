@@ -1,14 +1,16 @@
-import { Button } from "../components/Button";
-import styles from "./Components.module.css";
+import { Button } from "../Button";
+import styles from "./selectors.module.css";
+
+const allScenes = "alle";
 
 export const SceneSelector = (props) => (
   <section className={styles.section}>
     <div className={styles.gridSelector}>
       <Button
-        isActive={!props.selected}
-        onClick={() => props.setSelected(undefined)}
+        isActive={props.selected === allScenes}
+        onClick={() => props.setSelected(allScenes)}
       >
-        ALLE
+        {allScenes.toUpperCase()}
       </Button>
       {props.scenes.map((scene) => (
         <Button
