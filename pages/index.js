@@ -1,43 +1,18 @@
 import { isPast } from "date-fns";
 import Head from "next/head";
-import { useEffect, useState } from "react";
 import { createClient } from "redis";
 import { DateSelection, SceneSelector } from "../components/Selectors";
 import { Shows } from "../components/Shows";
 import { StickyNavigation } from "../components/StickyNavigation";
+import { useDateInView } from "../hooks/useDateInView";
 import { useShows } from "../hooks/useShows";
 import styles from "../styles/Home.module.css";
 
-const title = "Tært Conzært";
+const title = "OSLO";
 
 export default function Home({ scenes, allShows }) {
   const shows = useShows(allShows);
-
-  const [dateInView, setDateInView] = useState(new Date());
-
-  useEffect(() => {
-    // list of elements to be observed
-    const targets = document.getElementById("shows").children;
-
-    const options = {
-      root: null, // null means root is viewport
-      rootMargin: "-100px",
-      threshold: 0.5, // trigger callback when 50% of the element is visible
-    };
-
-    let observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        let dateOfEntry = new Date(entry.target.dataset.date);
-        if (entry.isIntersecting && dateOfEntry !== dateInView) {
-          console.log("dateInView", dateInView);
-
-          setDateInView(dateOfEntry);
-        }
-      });
-    }, options);
-
-    [...targets].forEach((target) => observer.observe(target));
-  }, []);
+  const { dateInView } = useDateInView(shows);
 
   return (
     <div className={styles.container}>
