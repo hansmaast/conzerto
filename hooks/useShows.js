@@ -10,16 +10,20 @@ export const useShows = (shows) => {
   useEffect(() => {
     switch (dateOption) {
       case "today":
-        setShowsToRender(getShowsAhead(shows, scene, 1));
+        const showsToday = getShowsAhead(shows, scene, 0);
+        setShowsToRender(showsToday);
         return;
       case "thisWeek":
-        setShowsToRender(getShowsAhead(shows, scene, 7));
+        const showsThisWeek = getShowsAhead(shows, scene, 7);
+        setShowsToRender(showsThisWeek);
         return;
       case "thisMonth":
-        setShowsToRender(getShowsAhead(shows, scene, 30));
+        const showsThisMonth = getShowsAhead(shows, scene, 30);
+        setShowsToRender(showsThisMonth);
         return;
       default:
-        setShowsToRender(getShowsAhead(shows, scene, Infinity));
+        const showsAll = getShowsAhead(shows, scene, Infinity);
+        setShowsToRender(showsAll);
     }
   }, [dateOption, shows, scene]);
 

@@ -1,33 +1,36 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+const options = {
+  root: null, // null means root is viewport
+  rootMargin: "0px",
+  threshold: 1,
+};
 
 export const useDateInView = ({ scene = "", dateOption = "" }) => {
   const [dateInView, setDateInView] = useState(new Date());
+
+  // need to figure out if this is necessary or not
+  const setDate = useCallback((date) => {
+    setDateInView(date);
+  }, []);
 
   useEffect(() => {
     // list of elements to be observed
     const targets = document.getElementById("shows").children;
 
-    const options = {
-      root: null, // null means root is viewport
-      rootMargin: "-100px",
-      threshold: 0.5, // trigger callback when 50% of the element is visible
-    };
-
     let observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
-        let dateOfEntry = new Date(entry.target.dataset.date);
-        if (entry.isIntersecting && dateOfEntry !== dateInView) {
-          console.log("dateInView", dateInView);
-
-          setDateInView(dateOfEntry);
+        let dateOfEntry = new Date(entry.target.getAttribute("data-date"));
+        if (entry.isIntersecting) {
+          setDate(dateOfEntry);
         }
       });
-
-      return () => observer.disconnect();
     }, options);
 
     [...targets].forEach((target) => observer.observe(target));
-  }, [scene, dateOption]);
+
+    return () => observer.disconnect();
+  }, [scene, dateOption, setDate]);
 
   return { dateInView };
 };

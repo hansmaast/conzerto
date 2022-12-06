@@ -14,7 +14,6 @@ export const Card = (props) => (
         {new Date(props.show.date).toLocaleDateString("no-NO", {
           day: "numeric",
           month: "long",
-          year: "2-digit",
           weekday: "short",
         })}
       </p>

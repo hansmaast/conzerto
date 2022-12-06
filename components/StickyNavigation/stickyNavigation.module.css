@@ -3,7 +3,7 @@
   position: sticky;
   top: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
   padding: 2rem 1rem;
   border-radius: 10;
@@ -14,6 +14,9 @@
 
 .navigation>button {
   font-size: small;
+  width: 100%;
+    padding: 0.5rem;
+    max-width: 25ch;
 }
 
 @media (prefers-color-scheme: dark) {

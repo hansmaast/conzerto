@@ -16,6 +16,7 @@ export const StickyNavigation = (
           .toLocaleDateString("no-NO", {
             day: "numeric",
             month: "short",
+            year: "2-digit",
           })
           .toUpperCase()}
       </Button>
