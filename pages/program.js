@@ -4,7 +4,7 @@ import { Shows } from "../lib/components/Shows";
 import { StickyNavigation } from "../lib/components/StickyNavigation";
 import { useDateInView } from "../lib/hooks/useDateInView";
 import { useShows } from "../lib/hooks/useShows";
-import { fetchAllShows } from "../lib/scraper/fetchers/fetchAllShows.mjs";
+import { fetchAllShows } from "../lib/scraper/fetchers";
 import styles from "../styles/Home.module.css";
 const title = "OSLO";
 
