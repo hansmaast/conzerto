@@ -1,4 +1,4 @@
-name: Generate program
+name: Deploy program
 
 on:
   schedule:
@@ -8,9 +8,6 @@ jobs:
   generate-program:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: npm ci
       - name: Deploy
-        run: npx vercel -y --prod --token ${{ secrets.DEPLOY_TOKEN }}      
+        run: curl -X POST ${{ secrets.DEPLOY_HOOK }}      
       
