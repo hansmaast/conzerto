@@ -1,18 +1,15 @@
-import { isPast } from "date-fns";
 import Head from "next/head";
-import { createClient } from "redis";
-import { DateSelection, SceneSelector } from "../components/Selectors";
-import { Shows } from "../components/Shows";
-import { StickyNavigation } from "../components/StickyNavigation";
-import { useDateInView } from "../hooks/useDateInView";
-import { useShows } from "../hooks/useShows";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import styles from "../styles/Home.module.css";
-
 const title = "OSLO";
 
-export default function Home({ scenes, allShows }) {
-  const shows = useShows(allShows);
-  const { dateInView } = useDateInView(shows);
+export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // router.push("/program");
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -25,59 +22,10 @@ export default function Home({ scenes, allShows }) {
       <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
         <hr />
-        <SceneSelector
-          scenes={scenes}
-          selected={shows.scene}
-          setSelected={shows.setScene}
-        />
-        <hr />
-        <DateSelection
-          dateOption={shows.dateOption}
-          setDateOption={shows.setDateOption}
-        />
-        <hr />
-        <StickyNavigation
-          dateInView={dateInView}
-          dateOption={shows.dateOption}
-          scene={shows.scene}
-        />
-        <Shows showsToRender={shows.showsToRender} />
+                
       </main>
 
       <footer className={styles.footer}>©hansmaast</footer>
     </div>
   );
-}
-
-export async function getStaticProps() {
-  const client = createClient({
-    url: process.env.redis_url,
-  });
-
-  client.on("error", (err) => console.log("Redis Client Error", err));
-
-  await client.connect();
-
-  let allShows = [];
-  let shows = await client.hGetAll("shows");
-  const scenes = Object.keys(shows);
-
-  scenes.forEach((scene) => {
-    shows[scene] = JSON.parse(shows[scene]);
-    allShows = [...allShows, ...shows[scene]];
-  });
-
-  allShows = allShows
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
-    .filter((show) => isPast(new Date(show.date)) === false);
-
-  await client.disconnect();
-
-  return {
-    props: {
-      shows,
-      scenes,
-      allShows,
-    },
-  };
 }
