@@ -10,6 +10,8 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
+    if (!router.isReady) return;
+
     const minimunTime = 3000;
 
     const timeout = setTimeout(() => {
@@ -17,7 +19,7 @@ export default function Home() {
     }, minimunTime);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [router]);
 
   return (
     <div className={styles.container}>
