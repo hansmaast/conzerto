@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import * as fetchers from "scraper/fetchers";
+import * as fetchers from "../../../lib/scraper/fetchers";
 
 export default async function handler(req, res) {
   console.log("Auth: ", req.headers.authorization);
