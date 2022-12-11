@@ -1,14 +1,22 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { Loader } from "../components/Loader";
 import styles from "../styles/Home.module.css";
+
 const title = "OSLO";
 
 export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // router.push("/program");
+    const minimunTime = 3000;
+
+    const timeout = setTimeout(() => {
+      router.push("/program");
+    }, minimunTime);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -20,9 +28,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>{title}</h1>
-        <hr />
-                
+        <Loader />
       </main>
 
       <footer className={styles.footer}>©hansmaast</footer>

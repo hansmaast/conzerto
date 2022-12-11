@@ -8,7 +8,7 @@ import { useShows } from "../hooks/useShows";
 import styles from "../styles/Home.module.css";
 const title = "OSLO";
 
-export default function Home({ scenes, allShows }) {
+export default function Program({ scenes, allShows }) {
   const shows = useShows(allShows);
   const { dateInView } = useDateInView(shows);
 
@@ -45,13 +45,6 @@ export default function Home({ scenes, allShows }) {
       <footer className={styles.footer}>©hansmaast</footer>
     </div>
   );
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: [{ params: { program: "program" } }],
-    fallback: true,
-  };
 }
 
 export async function getStaticProps() {
