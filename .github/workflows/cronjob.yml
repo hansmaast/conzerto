@@ -1,0 +1,16 @@
+name: Generate program
+
+on:
+  schedule:
+  - cron: "27 14 * * */3"
+  workflow_dispatch:
+jobs:
+  generate-program:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Deploy
+        run: npx vercel --prod      
+      
