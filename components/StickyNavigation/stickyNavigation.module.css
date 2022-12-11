@@ -1,0 +1,26 @@
+.navigation {
+  --background: white;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  border-radius: 10;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background: linear-gradient(var(--background) 0%, var(--background) 50%, transparent 100%);
+}
+
+.navigation>button {
+  font-size: small;
+  width: 100%;
+    padding: 0.5rem;
+    max-width: 25ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  .navigation {
+    --background: black;
+  }
+}

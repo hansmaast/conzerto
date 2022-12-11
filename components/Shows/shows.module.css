@@ -1,0 +1,12 @@
+.shows {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 600px) {
+  .shows {
+    display: grid;
+  }
+}

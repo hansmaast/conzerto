@@ -1,0 +1,71 @@
+.card {
+  --date-color: #e88138;
+  --scene-color: #569166;
+  margin: 1rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 300px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  /* place-items: flex-start; */
+  overflow: hidden;
+}
+
+.cardScene {
+  background-color: var(--scene-color);
+}
+
+.cardTitle {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.cardDate {
+  background-color: var(--date-color);
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  color: #0070f3;
+  border-color: #0070f3;
+}
+
+.card div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  width: 100%;
+  padding: .5rem;
+  color: white;
+  padding: 0.5rem;
+}
+
+.card div p {
+  padding: 0.5rem 1rem;
+  font-size: smaller;
+  font-weight: 600;
+  border-radius: 99px;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    border-color: #222;
+  }
+}
