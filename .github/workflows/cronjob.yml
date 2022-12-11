@@ -4,6 +4,9 @@ on:
   schedule:
   - cron: "27 14 * * */3"
   workflow_dispatch:
+  push:
+    branches:
+      - main
 jobs:
   generate-program:
     runs-on: macos-latest
