@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { Loader } from "../components/Loader";
+import { Loader } from "../lib/components/Loader";
 import styles from "../styles/Home.module.css";
 
 const title = "OSLO";

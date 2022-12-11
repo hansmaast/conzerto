@@ -1,10 +1,10 @@
 import Head from "next/head";
-import { fetchAllShows } from "scraper/fetchers";
-import { DateSelection, SceneSelector } from "../components/Selectors";
-import { Shows } from "../components/Shows";
-import { StickyNavigation } from "../components/StickyNavigation";
-import { useDateInView } from "../hooks/useDateInView";
-import { useShows } from "../hooks/useShows";
+import { DateSelection, SceneSelector } from "../lib/components/Selectors";
+import { Shows } from "../lib/components/Shows";
+import { StickyNavigation } from "../lib/components/StickyNavigation";
+import { useDateInView } from "../lib/hooks/useDateInView";
+import { useShows } from "../lib/hooks/useShows";
+import { fetchAllShows } from "../lib/scraper/fetchers/fetchAllShows.mjs";
 import styles from "../styles/Home.module.css";
 const title = "OSLO";
 
@@ -23,12 +23,14 @@ export default function Program({ scenes, allShows }) {
       <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
         <hr />
+
         <SceneSelector
           scenes={scenes}
           selected={shows.scene}
           setSelected={shows.setScene}
         />
         <hr />
+
         <DateSelection
           dateOption={shows.dateOption}
           setDateOption={shows.setDateOption}
