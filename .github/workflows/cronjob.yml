@@ -2,7 +2,7 @@ name: Deploy program
 
 on:
   schedule:
-  - cron: "27 14 * * */3"
+  - cron: "07 11 * * */1"
   workflow_dispatch:
   push:
     branches:
