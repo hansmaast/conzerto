@@ -1,5 +1,5 @@
 .dateIndicator {
-    --date-indicator-text: #999;
+    --date-indicator-text: #3a3a3a;
     --date-indicator-border-color: #e6e6e6;
     padding: 1rem;
     z-index: 1;
