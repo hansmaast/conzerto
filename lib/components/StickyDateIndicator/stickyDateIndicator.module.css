@@ -1,0 +1,17 @@
+.dateIndicator {
+    --date-indicator-text: #999;
+    --date-indicator-border-color: #e6e6e6;
+    padding: 1rem;
+    z-index: 1;
+    font-size: large;
+    font-weight: 400;
+    color: var(--date-indicator-text);
+}
+
+/* dark mode query */
+@media (prefers-color-scheme: dark) {
+    .dateIndicator {
+        --date-indicator-text: #ccc;
+        --date-indicator-border-color: #333;
+    }
+}

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import ora from "ora";
 import { DateSelection, SceneSelector } from "../lib/components/Selectors";
 import { Shows } from "../lib/components/Shows";
 import { StickyNavigation } from "../lib/components/StickyNavigation";
@@ -11,7 +12,7 @@ const title = "OSLO";
 
 export default function Program({ scenes, allShows }) {
   const shows = useShows(allShows);
-  const { dateInView } = useDateInView(shows);
+  const { newestDate, oldestDate } = useDateInView(shows);
 
   return (
     <div className={styles.container}>
@@ -31,14 +32,13 @@ export default function Program({ scenes, allShows }) {
           setSelected={shows.setScene}
         />
         <hr />
-
         <DateSelection
           dateOption={shows.dateOption}
           setDateOption={shows.setDateOption}
         />
-        <hr />
         <StickyNavigation
-          dateInView={dateInView}
+          startDate={newestDate}
+          endDate={oldestDate}
           dateOption={shows.dateOption}
           scene={shows.scene}
         />
@@ -51,8 +51,25 @@ export default function Program({ scenes, allShows }) {
 }
 
 export async function getStaticProps() {
-  const allShows = await fetchAllShows();
-  const scenes = [...new Set(allShows.map((show) => show.scene))];
+  let allShows = [];
+  let scenes = [];
+
+  // if dev, use mock data
+  if (process.env.NODE_ENV === "development") {
+    ora().succeed("Using mock data, in development 🚧");
+    const fs = require("fs");
+    allShows = JSON.parse(fs.readFileSync("./lib/scraper/mockData.json"));
+    scenes = [...new Set(allShows.map((show) => show.scene))];
+  } else {
+    ora().start("Fetching consert data 🏗️");
+    allShows = await fetchAllShows();
+    scenes = [...new Set(allShows.map((show) => show.scene))];
+    ora().succeed("Fetched consert data 🏗️");
+
+    // if prod, save mock data
+    const fs = require("fs");
+    fs.writeFileSync("./lib/scraper/mockData.json", JSON.stringify(allShows));
+  }
 
   return {
     props: {

@@ -11,13 +11,14 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
-    "dotenv": "^16.0.0",
-    "node-fetch": "^2.6.1",
-    "ora": "^6.1.0",
     "date-fns": "^2.29.3",
+    "dotenv": "^16.0.0",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
+    "lodash": "^4.17.21",
     "next": "13.0.5",
+    "node-fetch": "^2.6.1",
+    "ora": "^6.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "redis": "^4.5.1"

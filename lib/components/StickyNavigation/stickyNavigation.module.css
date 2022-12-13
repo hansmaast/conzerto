@@ -10,17 +10,47 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   background: linear-gradient(var(--background) 0%, var(--background) 50%, transparent 100%);
+  transition: opacity 0.5s, transform 0.3s;
+  }
+  
+  .navigation[data-visible="true"] {
+    opacity: 1;
+    transform: translateX(0rem);
+  }
+  
+  .navigation[data-visible="false"] {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+  
+  .navigation>section {
+    display: flex;
+    gap: .5rem;
 }
 
-.navigation>button {
-  font-size: small;
-  width: 100%;
-    padding: 0.5rem;
-    max-width: 25ch;
+.navigation>section>button {
+  font-size: large;
+  font-weight: 400;
+  width: fit-content;    
+  max-width: 25ch;
 }
 
 @media (prefers-color-scheme: dark) {
   .navigation {
     --background: black;
   }
+}
+@media (max-width: 600px) {
+  .navigation {
+    flex-direction: column;
+    gap: 0rem;
+    padding: 1rem 0.5rem;
+    align-items: center;
+  }
+
+  .navigation>section>button {
+    font-size: larger;
+    padding: 0.5rem 1.25rem;
+  }
+
 }
