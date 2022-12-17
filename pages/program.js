@@ -1,8 +1,10 @@
 import Head from "next/head";
 import ora from "ora";
+import { useEffect } from "react";
 import { DateSelection, SceneSelector } from "../lib/components/Selectors";
 import { Shows } from "../lib/components/Shows";
 import { StickyNavigation } from "../lib/components/StickyNavigation";
+import { useShowFilters } from "../lib/globalState/showFilters";
 import { useDateInView } from "../lib/hooks/useDateInView";
 import { useShows } from "../lib/hooks/useShows";
 import { fetchAllShows } from "../lib/scraper/fetchAllShows.mjs";
@@ -13,6 +15,11 @@ const title = "OSLO";
 export default function Program({ scenes, allShows }) {
   const shows = useShows(allShows);
   const { newestDate, oldestDate } = useDateInView(shows);
+  const { sceneOptions, setSceneOptions } = useShowFilters();
+
+  useEffect(() => {
+    setSceneOptions(scenes);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -25,24 +32,11 @@ export default function Program({ scenes, allShows }) {
       <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
         <hr />
-
-        <SceneSelector
-          scenes={scenes}
-          selected={shows.scene}
-          setSelected={shows.setScene}
-        />
+        <SceneSelector />
         <hr />
-        <DateSelection
-          dateOption={shows.dateOption}
-          setDateOption={shows.setDateOption}
-        />
-        <StickyNavigation
-          startDate={newestDate}
-          endDate={oldestDate}
-          dateOption={shows.dateOption}
-          scene={shows.scene}
-        />
-        <Shows showsToRender={shows.showsToRender} />
+        <DateSelection />
+        <StickyNavigation startDate={newestDate} endDate={oldestDate} />
+        <Shows shows={shows} />
       </main>
 
       <footer className={styles.footer}>©hansmaast</footer>
@@ -51,24 +45,35 @@ export default function Program({ scenes, allShows }) {
 }
 
 export async function getStaticProps() {
+  const fs = require("fs");
+  const isDevelopment = process.env.NODE_ENV === "development";
+  const filePath = "./lib/scraper/mockData.json";
+  const mockDataExists = !fs.existsSync(filePath);
   let allShows = [];
   let scenes = [];
 
-  // if dev, use mock data
-  if (process.env.NODE_ENV === "development") {
-    ora().succeed("Using mock data, in development 🚧");
-    const fs = require("fs");
-    allShows = JSON.parse(fs.readFileSync("./lib/scraper/mockData.json"));
-    scenes = [...new Set(allShows.map((show) => show.scene))];
-  } else {
-    ora().start("Fetching consert data 🏗️");
+  async function fetchShowsAndUpdateMockData() {
+    const showsLog = ora("Fetching consert data 🕸️").start();
     allShows = await fetchAllShows();
     scenes = [...new Set(allShows.map((show) => show.scene))];
-    ora().succeed("Fetched consert data 🏗️");
+    showsLog.succeed();
 
-    // if prod, save mock data
-    const fs = require("fs");
-    fs.writeFileSync("./lib/scraper/mockData.json", JSON.stringify(allShows));
+    const fsLog = ora("Saving mock data 🏗️").start();
+    fs.writeFileSync(filePath, JSON.stringify(allShows));
+    fsLog.succeed();
+  }
+
+  function readMockData() {
+    const mockLog = ora("Using mock data, in development 🚧").start();
+    allShows = JSON.parse(fs.readFileSync(filePath));
+    scenes = [...new Set(allShows.map((show) => show.scene))];
+    mockLog.succeed();
+  }
+
+  if (isDevelopment && mockDataExists) {
+    readMockData();
+  } else {
+    await fetchShowsAndUpdateMockData();
   }
 
   return {
