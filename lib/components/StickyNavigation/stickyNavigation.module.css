@@ -3,36 +3,39 @@
   position: sticky;
   top: 0;
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
-  gap: 1rem;
+  align-items: flex-end;
   padding: 2rem 1rem;
   border-radius: 10;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   background: linear-gradient(var(--background) 0%, var(--background) 50%, transparent 100%);
   transition: opacity 0.5s, transform 0.3s;
-  }
-  
-  .navigation[data-visible="true"] {
-    opacity: 1;
-    transform: translateX(0rem);
-  }
-  
-  .navigation[data-visible="false"] {
-    opacity: 0;
-    transform: translateX(1rem);
-  }
-  
-  .navigation>section {
-    display: flex;
-    gap: .5rem;
 }
-
-.navigation>section>button {
+.navigation[data-visible="true"] {
+  opacity: 1;
+  transform: translateX(0rem);
+}
+.navigation[data-visible="false"] {
+  opacity: 0;
+  transform: translateX(1rem);
+}
+.nav, .nav>div {
+  display: flex;
+  gap: .5rem;
+}
+.nav>button {
   font-size: large;
   font-weight: 400;
   width: fit-content;    
   max-width: 25ch;
+}
+.menu {
+  margin-top: 1.5rem;
+  width: 100%;
+  position: relative;
+  backdrop-filter: blur(10px);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,17 +43,28 @@
     --background: black;
   }
 }
+
 @media (max-width: 600px) {
   .navigation {
-    flex-direction: column;
-    gap: 0rem;
     padding: 1rem 0.5rem;
     align-items: center;
   }
 
-  .navigation>section>button {
-    font-size: larger;
-    padding: 0.5rem 1.25rem;
+    .nav {
+      flex-direction: column;
+      align-items: center;
+      gap: 0rem;
+    }
+
+    .nav>div {
+      display: flex;
+      gap: 0.5rem;
+    }
+  
+    .nav>button {
+      font-size: medium;
+      padding: 0.25rem 0.5rem;
+      background-color: red;
   }
 
 }
