@@ -7,10 +7,10 @@ on:
   
 jobs:
   build:
-    name: Trigger Site Rebuild
+    name: Trigger Build
     runs-on: ubuntu-latest
     steps:
       - name: Trigger deploy hook
-        run: curl -X POST ${{ secrets.DEPLOY_HOOK }}      
+        run: echo "Hello, world!"      
 
 
