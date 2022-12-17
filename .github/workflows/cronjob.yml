@@ -1,14 +1,16 @@
-name: Deploy program
+name: Trigger Site Rebuild and Scraping on schedule
 
 on:
   schedule:
-  - cron: "07 11 * * */1"
+    - cron: '07 11 * * */1'
   workflow_dispatch:
   
 jobs:
-  generate-program:
-    runs-on: macos-latest
+  build:
+    name: Trigger Site Rebuild
+    runs-on: ubuntu-latest
     steps:
-      - name: Deploy
+      - name: Trigger deploy hook
         run: curl -X POST ${{ secrets.DEPLOY_HOOK }}      
-      
+
+
