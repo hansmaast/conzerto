@@ -10,10 +10,10 @@ on:
   
 jobs:
   build:
-    name: Trigger uild
+    name: Trigger scrape and build
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger deploy hook
+      - name: Post deploy hook
         run: curl -X POST ${{ secrets.DEPLOY_HOOK }}      
 
 
